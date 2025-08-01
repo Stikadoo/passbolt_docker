@@ -4,9 +4,9 @@ services:
     restart: unless-stopped
     environment:
       MYSQL_RANDOM_ROOT_PASSWORD: "true"
-      MYSQL_DATABASE: "passbolt"
-      MYSQL_USER: "passbolt"
-      MYSQL_PASSWORD: "P4ssb0lt"
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
     volumes:
       - database_volume:/var/lib/mysql
 
@@ -19,10 +19,10 @@ services:
       - db
     environment:
       APP_FULL_BASE_URL: https://passbolt.local
-      DATASOURCES_DEFAULT_HOST: "db"
-      DATASOURCES_DEFAULT_USERNAME: "passbolt"
-      DATASOURCES_DEFAULT_PASSWORD: "P4ssb0lt"
-      DATASOURCES_DEFAULT_DATABASE: "passbolt"
+      DATASOURCES_DEFAULT_HOST: ${DATASOURCES_DEFAULT_HOST}
+      DATASOURCES_DEFAULT_USERNAME: ${MYSQL_USER}
+      DATASOURCES_DEFAULT_PASSWORD: ${MYSQL_PASSWORD}
+      DATASOURCES_DEFAULT_DATABASE: {MYSQL_DATABASE}
     volumes:
       - gpg_volume:/etc/passbolt/gpg
       - jwt_volume:/etc/passbolt/jwt
